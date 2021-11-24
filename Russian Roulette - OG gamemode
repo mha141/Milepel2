@@ -346,6 +346,11 @@ def avfyrt():
   sense.set_pixels(O)
   time.sleep(0.1)
 
+def log_score(score):
+  poeng = str(score)
+  with open('scorelist.csv', 'a') as f:
+    f.write(poeng)
+
 def forside():
   sense.set_pixels(TOM)
   ladning = [TOM, ETT, TO, TRE, FIRE, FEM, SEKS]
@@ -406,7 +411,8 @@ def spillalene(antallkuler):
       elif event.action == 'held':
         score = i * 1000 + magasin.count(1) * 1000
         sense.show_message(str(score))
-        return score
+        log_score(score)
+        forside()
 
 def spillflere(antallkuler):
   magasin = random.sample(antallkuler, len(antallkuler))
