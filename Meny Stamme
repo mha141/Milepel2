@@ -12,8 +12,6 @@ sense.clear()
 from sense_hat import SenseHat, ACTION_PRESSED, ACTION_HELD, ACTION_RELEASED
 sense = SenseHat()
 
-with open('csv.txt', 'w') as f:
-  f.write('ENVIRONMENTAL OUTPUTS:\n')
 
 MENY_1 = [
       (155, 155, 155), (0, 0, 0), (0, 0, 0), (184, 233, 134), (184, 233, 134), (0, 0, 0), (0, 0, 0), (0, 0, 0),
@@ -136,239 +134,6 @@ MENY_3_RIGHT = [
     (0, 0, 0), (0, 0, 0), (0, 0, 0), (184, 233, 134), (184, 233, 134), (0, 0, 0), (0, 0, 0), (0, 0, 0),
   ]
 
-
-
-
-# maggesfunksjon
-def vistemp():
-  while True:
-    for i in range(-100, 100):
-      temperatur = sense.temp
-      if round(temperatur) == i:
-        m = str(i - 10)
-        sense.show_message(m)
-    for event in sense.stick.get_events():
-      if event.action == 'pressed':
-        if event.direction == 'middle':
-          return m
-
-# Iversfunksjon
-def iverleirvik():
-  from sense_hat import SenseHat
-  
-  sense = SenseHat()
-  sense.set_imu_config(False, True, False)
-  import math
-  
-  while True:
-    RawInput = sense.get_accelerometer()
-  
-   
-  
-    ProcessedInput = int(127.5 + 127.501 * math.sin(0.0175 * RawInput["pitch"]-3.1377))
-  
-   
-    x = (ProcessedInput,255-ProcessedInput,0)
-  
-    
-  
-    bilde = [
-              x, x, x, x, x, x, x, x,
-              x, x, x, x, x, x, x, x,
-              x, x, x, x, x, x, x, x,
-              x, x, x, x, x, x, x, x,
-              x, x, x, x, x, x, x, x,
-              x, x, x, x, x, x, x, x,
-              x, x, x, x, x, x, x, x,
-              x, x, x, x, x, x, x, x,
-      ]
-  
-    sense.set_pixels(bilde)
-    for event in sense.stick.get_events():
-      if event.action == 'pressed':
-        if event.direction == 'middle':
-          return ProcessedInput
-
-def funksjonErlend():
-  while True:
-    r = (255, 0 , 0)
-    g = (0, 255, 0)
-    b = (10, 60, 235)
-
-    c = (0, 255, 255)
-    m = (255, 0, 255)
-    y = (255, 120, 0)
-    o = (255, 50, 0)
-    w = (100, 100, 100)
-    k = (0, 0, 0)
-    temperature = sense.get_temperature()
-    if temperature < 5:
-      sense.show_message("Brrrr... Kaldt!!" , back_colour = b)
-    elif temperature > 20:
-      sense.show_message("Mmmmm... Varmt!!" , back_colour = r)
-    else:
-      sense.show_message("Grei temp her." , back_colour = y , text_colour = (101, 67, 33))
-    
-    for event in sense.stick.get_events():
-      if event.action == 'pressed':
-          if event.direction == 'middle':
-              return temperature
-
-def alvar():
-  from random import choice
-  from time import sleep
-  sense = SenseHat()
-  sense.set_imu_config(True, False, False)
-
-  r = (255, 0, 0)
-  b = (0, 0, 255)
-  y = (255,255,0)
-  o = (255,125,0)
-  k = (0,0,0)
-
-  myImage = []
-
- 
-  while True:
-      direct = sense.get_compass()
-      
-      if direct >= 315 and direct <= 360 or direct >= 0 and direct <= 45:
-          dir = 'HEADING NORTH'
-          myImage = [
-          k, b, k, k, k, k, b, k,
-          k, b, b, k, k, k, b, k,
-          k, b, k, b, k, k, b, k,
-          k, b, k, b, k, k, b, k,
-          k, b, k, k, b, k, b, k,
-          k, b, k, k, k, b, b, k,
-          k, b, k, k, k, b, b, k,
-          k, b, k, k, k, k, b, k,
-          ]
-          sense.set_pixels(myImage)
-          sense.set_rotation(270)
-  
-      
-      elif direct > 45 and direct < 135:
-          dir = 'HEADING EAST'
-          myImage = [
-          k, y, y, y, y, y, y, k,
-          k, y, k, k, k, k, k, k,
-          k, y, k, k, k, k, k, k,
-          k, y, k, k, k, k, k, k,
-          k, y, y, y, y, y, y, k,
-          k, y, k, k, k, k, k, k,
-          k, y, k, k, k, k, k, k,
-          k, y, y, y, y, y, y, k,
-          ]
-          sense.set_pixels(myImage)
-          sense.set_rotation(270)
-  
-      
-      elif direct >= 135 and direct <= 225:
-          dir = 'HEADING SOUTH'
-          myImage = [
-          k, k, k, k, k, k, k, k,
-          k, k, r, r, r, r, k, k,
-          k, r, k, k, k, k, r, k,
-          k, r, k, k, k, k, k, k,
-          k, k, r, r, r, r, k, k,
-          k, k, k, k, k, k, r, k,
-          k, r, k, k, k, k, r, k,
-          k, k, r, r, r, r, k, k,
-          ]
-          sense.set_pixels(myImage)
-          sense.set_rotation(270)
-    
-      
-      elif direct > 225 and direct < 315:
-          dir = 'HEADING WEST'
-          myImage = [
-          k, k, k, k, k, k, k, k,
-          k, o, k, k, k, k, k, o,
-          k, o, k, k, k, k, k, o,
-          k, o, k, k, o, k, k, o,
-          k, o, k, k, o, k, k, o,
-          k, k, o, k, o, k, o, k,
-          k, k, o, k, o, k, o, k,
-          k, k, k, o, k, o, k, k,
-          ]
-          sense.set_pixels(myImage)
-          sense.set_rotation(270)
-      for event in sense.stick.get_events():
-          if event.action == 'pressed':
-              if event.direction == 'middle':
-                  return dir
-
-def tommy():
-  
-  sense.show_letter("A")
-
-  while True:
-    for event in sense.stick.get_events():
-      if event.action == 'pressed':
-        if event.direction == 'middle':
-          return sense.get_accelerometer_raw()
-    acceleration = sense.get_accelerometer_raw()
-    x = acceleration['x']
-    y = acceleration['y']
-    z = acceleration['z']
-    
-    x=round(x, 0)
-    y=round(y, 0)
-    z=round(z, 0)
-
-    if x  == -1:
-      sense.set_rotation(90)
-    elif y == 1:
-      sense.set_rotation(0)
-    elif y == -1:
-      sense.set_rotation(180)
-    else:
-      sense.set_rotation(270)
-
-def torstein():
-  from sense_hat import SenseHat
-  sense = SenseHat()
-
-  while True:
-    r = (255, 0 ,0)
-    b = (0, 0, 255)
-  
-    available_colors = [r, b,]
-  
-    pressure = sense.get_pressure()
-    
-    if pressure < 1000:
-      myImage = [
-        b, b, b, b, b, b, b, b,
-        b, b, b, b, b, b, b, b,
-        b, b, b, b, b, b, b, b,
-        b, b, b, b, b, b, b, b,
-        b, b, b, b, b, b, b, b,
-        b, b, b, b, b, b, b, b,
-        b, b, b, b, b, b, b, b,
-        b, b, b, b, b, b, b, b,
-        ]
-      sense.set_pixels(myImage)
-  
-    elif pressure >= 1000:
-      myImage = [
-        r, r, r, r, r, r, r, r,
-        r, r, r, r, r, r, r, r,
-        r, r, r, r, r, r, r, r,
-        r, r, r, r, r, r, r, r,
-        r, r, r, r, r, r, r, r,
-        r, r, r, r, r, r, r, r,
-        r, r, r, r, r, r, r, r,
-        r, r, r, r, r, r, r, r,
-        ]
-      sense.set_pixels(myImage)
-    
-    for event in sense.stick.get_events():
-      if event.action == 'pressed':
-        if event.direction == 'middle':
-          return pressure
-
 def meny1():
   sense.set_rotation(0)
   sense.set_pixels(MENY_1)
@@ -379,18 +144,15 @@ def meny1():
           meny2()
         elif event.direction == 'left':
           blink(MENY_1, MENY_1_LEFT, 'left')
-          with open('csv.txt', 'a') as f:
-            f.write('\nAlvar sier: ' + alvar())
+          # spill
           meny1()
         elif event.direction == 'right':
           blink(MENY_1, MENY_1_RIGHT, 'right')
-          with open('csv.txt', 'a') as f:
-            f.write('\nIfolge Erlend er tempen: ' + str(funksjonErlend()))
+          # spill
           meny1()
         elif event.direction == 'down':
           blink(MENY_1, MENY_1_DOWN, 'down')
-          with open('csv.txt', 'a') as f:
-            f.write('\nIfolge Torstein er trykket: ' + str(torstein()))
+          # spill
           meny1()
 
 
@@ -406,12 +168,11 @@ def meny2():
           meny1()
         elif event.direction == 'left':
           blink(MENY_2, MENY_2_LEFT, 'left')
-          with open('csv.txt', 'a') as f:
-            f.write('\n' + str('\nIver sier at dingsen ligger ' + str(iverleirvik()) + ' i forhold til bakken(?)'))
+          # spill
           meny2()
         elif event.direction == 'right':
           blink(MENY_2, MENY_2_RIGHT, 'right')
-          tommy()
+          # spill
           meny2()
 
 def meny3():
@@ -422,18 +183,17 @@ def meny3():
       if event.action == 'pressed':
         if event.direction == 'up':
           blink(MENY_3, MENY_3_UP, 'up')
-          main()
+          # spill
           meny3()
         elif event.direction == 'down':
           meny2()
         elif event.direction == 'left':
           blink(MENY_3, MENY_3_LEFT, 'left')
-          with open('csv.txt', 'a') as f:
-            f.write('\n' + 'Temperatur i floge magge: ' + vistemp() + 'C')
+          # spill
           meny3()
         elif event.direction == 'right':
           blink(MENY_3, MENY_3_RIGHT, 'right')
-          sense.show_message('egg')
+          # spill
           meny3()
 
 def blink(meny, meny_direction, direction):
@@ -453,12 +213,6 @@ def blink(meny, meny_direction, direction):
             meny3()
         elif event.direction == direction:
           return
-
-def main():
-  if __name__ == '__main__':
-    with open('info.csv', 'a') as f:
-      csvwriter = csv.writer(f, delimiter = ';')
-      csvwriter.writerow([alvar(), tommy(), funksjonErlend(), iverleirvik(), torstein(), vistemp()])
 
 while True:
   meny1()
