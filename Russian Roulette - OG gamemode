@@ -442,11 +442,11 @@ def rekyl():
     gyroYaw2 = '{yaw}'.format(**gyroscope2)
     u2 = float(gyroYaw2)
     print('Ikke skutt')
-    if u2 - u1 > 20 or u2 - u1 < -20:
+    if u2 - u1 > 25:
       break
 
 def forside():
-  sense.show_message("Velg mengden kuler. Opp for flere kuler, ned for mindre.", 0.1)
+  sense.show_message('Opp -> +1, Ned -> -1')
   sense.set_pixels(TOM)
   ladning = [TOM, ETT, TO, TRE, FIRE, FEM, SEKS]
   ladning2 = [TOM, ETTX, TOX, TREX, FIREX, FEMX, SEKS]
@@ -529,11 +529,13 @@ def spillflere(antallkuler):
           sense.show_message('GAME OVER')
           forside()
         elif magasin[i] == 1:
+          rekyl()
           avfyrt()
           del magasin[i]
           magasin.insert(i, 0)
           print(magasin)
         else:
+          rekyl()
           fakeBang()
           print(magasin)
         i += 1    
