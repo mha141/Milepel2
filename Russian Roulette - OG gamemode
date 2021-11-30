@@ -4,6 +4,7 @@ from sense_hat import SenseHat
 sense = SenseHat()
 import time
 import random
+import csv
 
 A = [
       (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0),
