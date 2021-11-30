@@ -1,4 +1,5 @@
 #!/bin/python3
+# jeg heter magnus
 
 from sense_hat import SenseHat
 sense = SenseHat()
