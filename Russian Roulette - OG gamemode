@@ -1,5 +1,4 @@
 #!/bin/python3
-# jeg heter magnus
 
 from sense_hat import SenseHat
 sense = SenseHat()
@@ -447,6 +446,7 @@ def rekyl():
       break
 
 def forside():
+  sense.show_message("Velg mengden kuler. Opp for flere kuler, ned for mindre.", 0.1)
   sense.set_pixels(TOM)
   ladning = [TOM, ETT, TO, TRE, FIRE, FEM, SEKS]
   ladning2 = [TOM, ETTX, TOX, TREX, FIREX, FEMX, SEKS]
