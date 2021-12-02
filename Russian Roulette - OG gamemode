@@ -12,16 +12,17 @@ from animasjoner_milepel2 import *
 
 # Funksjon for "revolver-tønne", hvor tønnen spinner når du har ladet ferdig. (For å vise at det skuddene blir tilfeldiggjort) 
 def spinn():
+  grader = [270, 90, 180, 0] # Grader som trengs
   for i in range(4): # Gjør det under 4 ganger
-    for i in [270, 90, 180, 0]: # Alle grader som trengs
-      sense.set_rotation(i) # Roterer
+    for i in range(len(grader)): # Bruker hele listen
+      sense.set_rotation(grader[i]) # Roterer
       time.sleep(0.1)
 
 # Funksjon for animasjon av våpen avfyrt.
 def avfyrt():
   skuddavfyrt = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O] # Alle animasjoner som trengs
-  for i in skuddavfyrt:
-    sense.set_pixels(animasjoner(i))
+  for i in range(len(skuddavfyrt)):
+    sense.set_pixels(animasjoner(skuddavfyrt[i]))
     time.sleep(0.1)
 
 # Funksjon for å velge hvor mange som er med i spillet (Hører til extended gamemode)
