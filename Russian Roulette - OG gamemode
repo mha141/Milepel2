@@ -20,8 +20,8 @@ def spinn():
 
 # Funksjon for animasjon av våpen avfyrt.
 def avfyrt():
-  skuddavfyrt = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O] # Alle animasjoner som trengs
-  for i in range(len(skuddavfyrt)):
+  skuddavfyrt = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O"] # Alle animasjoner som trengs
+  for i in range(len(skuddavfyrt)): # Bruker hele listen
     sense.set_pixels(animasjoner(skuddavfyrt[i]))
     time.sleep(0.1)
 
