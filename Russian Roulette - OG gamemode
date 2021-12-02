@@ -19,10 +19,28 @@ def spinn():
 
 # Funksjon for animasjon av våpen avfyrt.
 def avfyrt():
-  for i in ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O]: # Alle animasjoner som trengs
+  skuddavfyrt = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O] # Alle animasjoner som trengs
+  for i in skuddavfyrt:
     sense.set_pixels(animasjoner(i))
     time.sleep(0.1)
-  
+
+# Funksjon for å velge hvor mange som er med i spillet (Hører til extended gamemode)
+def playercount():
+  sense.show_message('Velg spillere. Opp -> +1, Ned -> -1, press -> exit')
+  # Starter med to spillere ved antakelsen at det skal være en gruppe som spiller
+  players = 2
+  while True: 
+    for event in sense.stick.get_events:
+      # Om joystick opp legg til en spiller
+      if event.direction == 'up':
+        players += 1
+      # Om joystick ned trekk fra en spiller
+      if event.direction == 'down' and players > 2:
+        players += -1
+      # Om jostick presses ned returner mengden spillere og stop funksjonen
+      if event.action == 'pressed':
+        return players
+            
 def log_score(score):
   
   # Her henter vi inn de riktige standardmodulene
@@ -223,6 +241,41 @@ def spillflere(antallkuler):
           fakeBang()
         i += 1    
 
+def spillflereextended(antallkuler):
+  # Definerer mengden spillere, lager "magasinet", setter en teller i og definerer score
+  players = playercount()
+  magasin = random.sample(antallkuler, len(antallkuler))
+  i = 0
+  score = 0
+  while True:
+    sense.set_pixels(A)
+    for event in sense.stick.get_events():
+      # Om joysticken trykkes inn start spillet
+      if event.action == 'pressed':
+        # Om magasinet er gatt en runde, lag et nytt magasin og resetter indeksen i.
+        if i ==  6:
+          magasin = random.sample(antallkuler, len(antallkuler))
+          i = 0
+        # Om det kun er en spiller igjen eller joysticken holdes inne avslutt spillet og gå til forsiden
+        if players == 1 or event.action == 'held':
+          sense.show_message('GAME OVER')
+          forside()
+        # Eller om magasinet har en "kule" ved indeks i "skyt"/eliminer spiller
+        elif magasin[i] == 1:
+          rekyl()
+          avfyrt()
+          sense.show_message(players + ' players remain')
+          del magasin[i]
+          magasin.insert(i, 0)
+          print(magasin)
+          players += -1
+        # Ellers vis fakebang
+        else:
+          rekyl()
+          fakeBang()
+          print(magasin)
+        # Ok indeksen med en
+        i += 1
 # Kjører funksjonen som fører til alle andre funksjoner
 forside()
 
