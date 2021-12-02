@@ -150,16 +150,15 @@ def log_score(score):
 # Funksjon som bare returnerer eller blir ferdig om spilleren selv beveger RPIEn som et våpen avfyrt med en rekyl. Denne funksjonen brukes kun etter avtrekker (stick) er brukt.
 def rekyl():
   while True:
-    gyroscope1 = sense.get_gyroscope()
-    gyroYaw1 = '{yaw}'.format(**gyroscope1)
-    u1 = float(gyroYaw1)
-    time.sleep(0.2)
-    gyroscope2 = sense.get_gyroscope()
-    gyroYaw2 = '{yaw}'.format(**gyroscope2)
-    u2 = float(gyroYaw2)
-    print('Ikke skutt')
-    if u2 - u1 > 25:
-      break
+    gyroscope1 = sense.get_gyroscope() # Henter verdier for gyroskop
+    gyroYaw1 = '{yaw}'.format(**gyroscope1) # Henter ut kun yaw fra variabel 
+    u1 = float(gyroYaw1) # Posisjon 1
+    time.sleep(0.2) # Venter en kort stund
+    gyroscope2 = sense.get_gyroscope() # Nye verdier 
+    gyroYaw2 = '{yaw}'.format(**gyroscope2) # Ny yaw
+    u2 = float(gyroYaw2) # Posisjon 2
+    if u2 - u1 > 25: # Om det er en stor endring (på en kort tid pga time.sleep) = Om det er en stor akselerasjon.
+      break # Hopp ut og gå videre i spillet
 
 # Forside for spill.
 def forside():
