@@ -186,6 +186,9 @@ def forside():
               elif event.direction == 'left': # Om venstre
                 spinn() # Spinner tønne
                 spillalene(antallkuler) # Kjører singleplayer spill
+              elif event.direction == 'down':
+                spinn() # Spinner tønne
+                spillflereextended(antallkuler) # Kjører extended multiplayer
 
 # Funksjon for ikke avfyrt våpen                  
 def fakeBang():
@@ -242,6 +245,7 @@ def spillflere(antallkuler):
           fakeBang()
         i += 1    
 
+# Multiplayer en extended versjon
 def spillflereextended(antallkuler):
   # Definerer mengden spillere, lager "magasinet", setter en teller i og definerer score
   players = playercount()
@@ -275,8 +279,9 @@ def spillflereextended(antallkuler):
           rekyl()
           fakeBang()
           print(magasin)
-        # Ok indeksen med en
+        # Ook indeksen med en
         i += 1
+
 # Kjører funksjonen som fører til alle andre funksjoner
 forside()
 
