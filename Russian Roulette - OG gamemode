@@ -1,9 +1,11 @@
 #!/bin/python3
+# -*- coding: utf-8 -*-
 
 from sense_hat import SenseHat
 sense = SenseHat()
 import time
 import random
+from animasjoner_milepel2 import *
 
 A = [
       (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0),
@@ -326,35 +328,35 @@ def spinn():
 
 
 def avfyrt():
-  sense.set_pixels(A)
+  sense.set_pixels(animasjoner("A"))
   time.sleep(0.1)
-  sense.set_pixels(B)
+  sense.set_pixels(animasjoner("B"))
   time.sleep(0.1)
-  sense.set_pixels(C)
+  sense.set_pixels(animasjoner("C"))
   time.sleep(0.1)
-  sense.set_pixels(D)
+  sense.set_pixels(animasjoner("D"))
   time.sleep(0.1)
-  sense.set_pixels(E)
+  sense.set_pixels(animasjoner("E"))
   time.sleep(0.1)
-  sense.set_pixels(F)
+  sense.set_pixels(animasjoner("F"))
   time.sleep(0.1)
-  sense.set_pixels(G)
+  sense.set_pixels(animasjoner("G"))
   time.sleep(0.1)
-  sense.set_pixels(H)
+  sense.set_pixels(animasjoner("H"))
   time.sleep(0.1)
-  sense.set_pixels(I)
+  sense.set_pixels(animasjoner("I"))
   time.sleep(0.1)
-  sense.set_pixels(J)
+  sense.set_pixels(animasjoner("J"))
   time.sleep(0.1)
-  sense.set_pixels(K)
+  sense.set_pixels(animasjoner("K"))
   time.sleep(0.1)
-  sense.set_pixels(L)
+  sense.set_pixels(animasjoner("L"))
   time.sleep(0.1)
-  sense.set_pixels(M)
+  sense.set_pixels(animasjoner("M"))
   time.sleep(0.1)
-  sense.set_pixels(N)
+  sense.set_pixels(animasjoner("N"))
   time.sleep(0.1)
-  sense.set_pixels(O)
+  sense.set_pixels(animasjoner("O"))
   time.sleep(0.1)
 
 
@@ -465,9 +467,9 @@ def rekyl():
 
 def forside():
   sense.show_message('Opp -> +1, Ned -> -1')
-  sense.set_pixels(TOM)
-  ladning = [TOM, ETT, TO, TRE, FIRE, FEM, SEKS]
-  ladning2 = [TOM, ETTX, TOX, TREX, FIREX, FEMX, SEKS]
+  sense.set_pixels(animasjoner("TOM"))
+  ladning = [animasjoner("TOM"), animasjoner("ETT"), animasjoner("TO"), animasjoner("TRE"), animasjoner("FIRE"), animasjoner("FEM"), animasjoner("SEKS")]
+  ladning2 = [animasjoner("TOM"), animasjoner("ETTX"), animasjoner("TOX"), animasjoner("TREX"), animasjoner("FIREX"), animasjoner("FEMX"), animasjoner("SEKS")]
   antallkuler = []
   while True:
     for event in sense.stick.get_events():
@@ -502,7 +504,7 @@ def forside():
                 spillalene(antallkuler)
 
 def fakeBang():
-  sense.set_pixels(FAKE_BANG)
+  sense.set_pixels(animasjoner("FAKE_BANG"))
   time.sleep(1)
 
 def spillalene(antallkuler):
@@ -510,7 +512,7 @@ def spillalene(antallkuler):
   i = 0
   score = 0
   while True:
-    sense.set_pixels(A)
+    sense.set_pixels(animasjoner("A"))
     for event in sense.stick.get_events():
       if event.action == 'pressed':
         if i == 6:
@@ -540,7 +542,7 @@ def spillflere(antallkuler):
   i = 0
   score = 0
   while True:
-    sense.set_pixels(A)
+    sense.set_pixels(animasjoner("A"))
     for event in sense.stick.get_events():
       if event.action == 'pressed':
         if i == 6:
