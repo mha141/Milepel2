@@ -359,23 +359,32 @@ def avfyrt():
 
 
 def log_score(score):
-    
+  
+  # Her henter vi inn de riktige standardmodulene
   import csv 
-  import datetime as dt
+  import datetime as dt 
 
+  # Her blir den riktige dataen hentet inn.
+  # Poeng som kommer fra argumentet til funksjonen og tidspunktet til når funksjonen blir kjørt.
   poeng = str(score)
-  tidspunkt = dt.datetime.now()
+  tidspunkt = dt.datetime.now() 
+    
+  # Disse variablene brukes til csv.DictWriter funksjonen i variabelen log_score_once.
   fieldnames = ["Score", "Tidspunkt"]   
-  dictionary = [{"Score" : f"{poeng}", "Tidspunkt" : f"{tidspunkt}"}]
+  dictionary = [{"Score" : f"{poeng}", "Tidspunkt" : f"{tidspunkt}"}] 
   
   counting_number = 0
-  counting_number_1 = 0
-  iterator_for_dictionaries_from_CSV_1 = 0
+  counting_number_1 = 0 
+  iterator_for_dictionaries_from_CSV_1 = 0 # Iteratorer brukt i funksjonen.
   dictionary_SenseHat = dict([])
   dictionary_SenseHat_result = dict([])
   nested_dictionaries = dict([])
   listed_dictionaries = []
+      
+  # Her er lagringen av dataen i dictionaries brukt ulike steder i funksjonen.
   
+  # Den første delen av koden åpner filen scorelist.csv. Den legger inn dataen den akkurat har samlet inn. Den passer også på om filen er tom, og hvis den er det
+  # så vil den legge til en header i toppen.
   with open('scorelist.csv', 'a', newline="" ) as f:
     log_score_once = csv.DictWriter(f, fieldnames = fieldnames)
      
@@ -385,10 +394,13 @@ def log_score(score):
             log_score_once.writeheader()
     
     log_score_once.writerows(dictionary)
-    
+  
+  # Denne delen av koden er rettet mot visningen av det beste resultatet på rpi'en.
+  # Den henter inn all data fra filen scorelist.csv og sorterer den etter resultat i poeng.
   with open("scorelist.csv", "r") as f:
     dictionaries_from_CSV = csv.DictReader(f)
     
+    # Det er gjennomgående i koden at for-løkkene bruker iteratorer for å identifsere linjenummer. Linjenummeret blir brukt som nøkkel i dictionaryene.
     for dictionary_in_dictionaries_from_CSV in dictionaries_from_CSV:
         dictionary_SenseHat.update({counting_number : dictionary_in_dictionaries_from_CSV})
         counting_number += 1
@@ -397,23 +409,28 @@ def log_score(score):
         if counting_number_1 < float(dictionary_SenseHat[iterator]["Score"]):
             counting_number_1 = float(dictionary_SenseHat[iterator]["Score"])
             dictionary_SenseHat_result = dictionary_SenseHat[iterator]
-        
+  
+  # Dette er en liten, men viktig del av koden når det kommer til resultatlisten. Den sletter alt innhold i filen Topp5.csv.
+  # Det blir gjort for at den nye resultatlisten ikke skal legge seg under den forrige.
   f = open("Topp5.csv", "w+")
   f.close()
-
+  
+  # Denne delen henter inn data fra scorelist.csv, deretter legger den dataen i en nye dictionary med en ny nøkkel. 
   with open("scorelist.csv", "r")  as f:
     dictionaries_from_CSV_1 = csv.DictReader(f)
     
     for dictionary_in_dictionaries_from_CSV_1 in dictionaries_from_CSV_1:
         nested_dictionaries.update({iterator_for_dictionaries_from_CSV_1 : dictionary_in_dictionaries_from_CSV_1})
         iterator_for_dictionaries_from_CSV_1 += 1
-
+  
+  # Denne for-løkken henter data fra den forrige dictionaryen. Deretter legger den det inn i en liste som skal bli sortert etter resultatet i score.
   for iterator_1 in range(len(nested_dictionaries)):
      listed_dictionaries.append([iterator_1,{ "Score":float(nested_dictionaries[iterator_1]["Score"]),"Tidspunkt":nested_dictionaries[iterator_1]["Tidspunkt"]}])
   
-     
+  # På denne måten har vi sortert all dataen fra filen scorelist.csv, og ikke kun funnet den med best resultat.  
   sorted_objects = sorted(listed_dictionaries, reverse = True, key = lambda x: x[1]["Score"])
-    
+  
+  # Den siste for-løkken gjør det samme som den første, men denne legger resultatet inn i en ny fil som heter Topp5.csv
   for iterator_2 in range(len(sorted_objects)):
       dictionary_1 =  [{"Plassering" : f"{iterator_2 + 1}", "Score" : f"{sorted_objects[iterator_2][1]['Score']}", "Tidspunkt" : f"{sorted_objects[iterator_2][1]['Tidspunkt']}"}]
       fieldnames_1 = ["Plassering", "Score", "Tidspunkt"]
@@ -426,7 +443,8 @@ def log_score(score):
                   Topp5_fil.writeheader()
               
           Topp5_fil.writerows(dictionary_1)
-         
+   
+  # Her blir det beste resultatet vist på rpi'en.
   sense.show_message(f"Hoyeste Score: {dictionary_SenseHat_result['Score']}, Tidspunktet var: {dictionary_SenseHat_result['Tidspunkt']}.")
 
 
