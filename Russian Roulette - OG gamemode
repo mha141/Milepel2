@@ -13,49 +13,16 @@ from animasjoner_milepel2 import *
 # Funksjon for "revolver-tønne", hvor tønnen spinner når du har ladet ferdig. (For å vise at det skuddene blir tilfeldiggjort) 
 def spinn():
   for i in range(4): # Gjør det under 4 ganger
-    sense.set_rotation(270) # Roter til 270 grader
-    time.sleep(0.1)
-    sense.set_rotation(90)
-    time.sleep(0.1)
-    sense.set_rotation(180)
-    time.sleep(0.1)
-    sense.set_rotation(0)
-
+    for i in [270, 90, 180, 0]: # Alle grader som trengs
+      sense.set_rotation(i) # Roterer
+      time.sleep(0.1)
 
 # Funksjon for animasjon av våpen avfyrt.
 def avfyrt():
-  sense.set_pixels(animasjoner("A")) # Her brukes den importerte funksjonen som henter et bilde. Hvor bilde i "animasjonsfilen" heter "A".
-  time.sleep(0.1)
-  sense.set_pixels(animasjoner("B"))
-  time.sleep(0.1)
-  sense.set_pixels(animasjoner("C"))
-  time.sleep(0.1)
-  sense.set_pixels(animasjoner("D"))
-  time.sleep(0.1)
-  sense.set_pixels(animasjoner("E"))
-  time.sleep(0.1)
-  sense.set_pixels(animasjoner("F"))
-  time.sleep(0.1)
-  sense.set_pixels(animasjoner("G"))
-  time.sleep(0.1)
-  sense.set_pixels(animasjoner("H"))
-  time.sleep(0.1)
-  sense.set_pixels(animasjoner("I"))
-  time.sleep(0.1)
-  sense.set_pixels(animasjoner("J"))
-  time.sleep(0.1)
-  sense.set_pixels(animasjoner("K"))
-  time.sleep(0.1)
-  sense.set_pixels(animasjoner("L"))
-  time.sleep(0.1)
-  sense.set_pixels(animasjoner("M"))
-  time.sleep(0.1)
-  sense.set_pixels(animasjoner("N"))
-  time.sleep(0.1)
-  sense.set_pixels(animasjoner("O"))
-  time.sleep(0.1)
-
-
+  for i in ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O]: # Alle animasjoner som trengs
+    sense.set_pixels(animasjoner(i))
+    time.sleep(0.1)
+  
 def log_score(score):
   
   # Her henter vi inn de riktige standardmodulene
