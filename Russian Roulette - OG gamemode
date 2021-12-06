@@ -37,7 +37,7 @@ def playercount():
         if event.direction == 'up':
           players += 1
         # Om joystick ned
-        elif event.direction == 'down'
+        elif event.direction == 'down':
           # Og mengden spillere er høyere enn 2 trekk fra en spiller
           if players > 2:
             players = players - 1
@@ -272,6 +272,7 @@ def spillflereextended(antallkuler):
           print(magasin)
         # Om det kun er en spiller igjen vis "winner" og gå til forsiden
         if players == 1:
+          time.sleep(1.5)
           sense.show_message('WINNER!')
           forside()
         # Eller, om joysticken holdes inne avslutt spillet og g� til forsiden
