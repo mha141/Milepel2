@@ -31,7 +31,7 @@ def playercount():
   # Starter med to spillere ved antakelsen at det skal være en gruppe som spiller
   players = 2
   while True: 
-    for event in sense.stick.get_events:
+    for event in sense.stick.get_events():
       # Om joystick opp legg til en spiller
       if event.direction == 'up':
         players += 1
