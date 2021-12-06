@@ -148,7 +148,7 @@ def rekyl():
 
 # Forside for spill.
 def forside():
-  sense.show_message('Opp -> +1, Ned -> -1') # Viser hvordan man lader våpen.
+  sense.show_message('Up: +1, Down: -1') # Viser hvordan man lader våpen.
   sense.set_pixels(animasjoner("TOM")) # Animasjon for tom tønne.
   
   # Liste over animasjoner som viser antall skudd satt inn i tønnen.
@@ -176,7 +176,7 @@ def forside():
           for i in range(6 - len(antallkuler)): # For alle gjenstående plasser, hvor totalt plasser er 6:
             n = 0 # En tom "hylse"
             antallkuler.append(0) # Legg til
-          sense.show_message('Single: <- , Multi: ->') # Hvis valg av multiplayer og singleplayer
+          sense.show_message('Single: <- , Extended: v, Multi: ->, ') # Hvis valg av multiplayer og singleplayer
           sense.stick.wait_for_event() # Venter på svar
           for event in sense.stick.get_events(): 
             if event.action == 'pressed':
