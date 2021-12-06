@@ -261,8 +261,12 @@ def spillflereextended(antallkuler):
         if i ==  6:
           magasin = random.sample(antallkuler, len(antallkuler))
           i = 0
-        # Om det kun er en spiller igjen eller joysticken holdes inne avslutt spillet og gå til forsiden
-        if players == 1 or event.action == 'held':
+        # Om det kun er en spiller igjen vis "winner" og gå til forsiden
+        if players == 1:
+          sense.show_message('WINNER!!')
+          forside()
+        # Eller, om joysticken holdes inne avslutt spillet og g� til forsiden
+        if event.action == 'held':
           sense.show_message('GAME OVER')
           forside()
         # Eller om magasinet har en "kule" ved indeks i "skyt"/eliminer spiller
