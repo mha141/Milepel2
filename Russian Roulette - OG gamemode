@@ -25,22 +25,30 @@ def avfyrt():
     sense.set_pixels(animasjoner(skuddavfyrt[i]))
     time.sleep(0.1)
 
-# Funksjon for å velge hvor mange som er med i spillet (Hører til extended gamemode)
+# Funksjon for � velge hvor mange som er med i spillet (H�rer til extended gamemode)
 def playercount():
   sense.show_message('Velg spillere. Opp -> +1, Ned -> -1, press -> exit')
-  # Starter med to spillere ved antakelsen at det skal være en gruppe som spiller
+  # Starter med to spillere ved antakelsen at det skal v�re en gruppe som spiller
   players = 2
-  while True: 
+  while True:
     for event in sense.stick.get_events():
-      # Om joystick opp legg til en spiller
-      if event.direction == 'up':
-        players += 1
-      # Om joystick ned trekk fra en spiller
-      if event.direction == 'down' and players > 2:
-        players += -1
-      # Om jostick presses ned returner mengden spillere og stop funksjonen
       if event.action == 'pressed':
-        return players
+        # Om joystick opp legg til en spiller
+        if event.direction == 'up':
+          players += 1
+        # Om joystick ned
+        elif event.direction == 'down'
+          # Og mengden spillere er høyere enn 2 trekk fra en spiller
+          if players > 2:
+            players = players - 1
+          # Og ellers forblir mengden spillere lik
+          else:
+            players = players
+        # Om jostick presses ned returner mengden spillere og stop funksjonen
+        elif event.action == 'pressed':
+          return int(players)
+        # Vis mengden spillere
+        sense.show_message(str(players))
             
 def log_score(score):
   
@@ -253,7 +261,7 @@ def spillflereextended(antallkuler):
   i = 0
   score = 0
   while True:
-    sense.set_pixels(A)
+    sense.set_pixels(animasjoner("A"))
     for event in sense.stick.get_events():
       # Om joysticken trykkes inn start spillet
       if event.action == 'pressed':
@@ -261,23 +269,26 @@ def spillflereextended(antallkuler):
         if i ==  6:
           magasin = random.sample(antallkuler, len(antallkuler))
           i = 0
+          print(magasin)
         # Om det kun er en spiller igjen vis "winner" og gå til forsiden
         if players == 1:
-          sense.show_message('WINNER!!')
+          sense.show_message('WINNER!')
           forside()
         # Eller, om joysticken holdes inne avslutt spillet og g� til forsiden
-        if event.action == 'held':
+        elif event.action == 'held':
           sense.show_message('GAME OVER')
           forside()
-        # Eller om magasinet har en "kule" ved indeks i "skyt"/eliminer spiller
+        # Eller om magasinet har en "kule" ved indeks i "skyt"/eliminer spiller og fjerner "kulen"
         elif magasin[i] == 1:
           rekyl()
           avfyrt()
-          sense.show_message(players + ' players remain')
-          del magasin[i]
-          magasin.insert(i, 0)
-          print(magasin)
-          players += -1
+          players = players - 1
+          # Om spillere som gjennstår er over 1 vis hvormange som gjenstår og fjern kulen fra magasinet
+          if players > 1:
+            sense.show_message(str(players) + ' players remain')
+            del magasin[i]
+            magasin.insert(i, 0)
+            print(magasin)
         # Ellers vis fakebang
         else:
           rekyl()
