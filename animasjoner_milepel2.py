@@ -5,6 +5,7 @@ Created on Thu Dec  2 10:39:01 2021
 @author: Iver
 """
 
+# Denne funksjonen brukes for å kalle på de ulike animasjonene lagret under. Dette gjør hoveddelen av koden mer oversikltig.
 def animasjoner(x):
 
     ordbok = {"A":[
@@ -244,5 +245,7 @@ def animasjoner(x):
           ]}
         
     variabelen = ordbok[x]
-            
+    # Det er gjennom variabelen man kan velge hvilken animasjon man vil ha. Ved å putte sin "x" i funksjonen vil den returnere den riktige animasjonen til
+    # RGB matrisen.
+    
     return variabelen
